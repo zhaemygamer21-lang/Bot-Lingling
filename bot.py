@@ -1,7 +1,5 @@
 import os, time, requests, threading, re
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import discord
-from discord.ext import commands
 
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
@@ -49,7 +47,6 @@ def run_server():
 threading.Thread(target=run_server, daemon=True).start()
 
 def enviar_a_discord(link, titulo, resumen, fuente, imagen_url=None):
-    # FRASE FINAL CON EL NOMBRE COMPLETADO CON ÉXITO
     saludo_lingling = (
         "🛍️✨ **¡Sawasdee kha! Soy LingLing Kwong, su coleccionista de confianza, y les traigo "
         "estos hermosos tesoros jochis que seguramente quieren adquirir. ¡Prepárense para dejar sus quincenas! 🖼️🎁**"
@@ -102,8 +99,13 @@ def extraer_datos_tienda(html_puro, url_base):
     return None
 
 def bucle_monitoreo_merch():
+    # CAMBIO CRÍTICO: El historial inicia vacío para forzar la publicación inmediata de lo actual
     ultimos_productos = {}
-    print("Iniciando rastreador antibloqueo de LingLing Coleccionista (11 Fuentes)...")
+    print("Iniciando rastreador masivo de tesoros jochis...")
+    
+    # Bandera técnica para controlar el flujo inicial
+    primera_carga = True
+    
     while True:
         for nombre_tienda, url in FUENTES_MERCH.items():
             try:
@@ -119,14 +121,16 @@ def bucle_monitoreo_merch():
                 datos = extraer_datos_tienda(res.text, url)
                 if datos:
                     for link, titulo, resumen, foto in datos:
-                        if nombre_tienda not in ultimos_productos or titulo != ultimos_productos[nombre_tienda]:
+                        # Si es la primera vez que arranca, estampa el catálogo de una vez en el chat
+                        if primera_carga or (nombre_tienda not in ultimos_productos or titulo != ultimos_productos[nombre_tienda]):
                             ultimos_productos[nombre_tienda] = titulo
                             enviar_a_discord(link, titulo, resumen, nombre_tienda, foto)
-                            time.sleep(3)
+                            time.sleep(4) # Espaciado elegante para que Discord no lo frene
             except:
                 pass
+        
+        primera_carga = False # Luego del bombardeo inicial, se queda vigilando solo lo nuevo
         time.sleep(900)
 
 if __name__ == "__main__":
     bucle_monitoreo_merch()
-          
