@@ -39,14 +39,32 @@ FUENTES_MERCH = {
     "Creative Lifestyle Store": RutaMerch_4,
     "AliExpress Baratijas": RutaMerch_5,
     "VelvetMoon Papelería": RutaMerch_6,
-    "Babii Store Latam (Instagram)": RutaMerch_7,
-    "Raikantopini Shop (Instagram)": RutaMerch_8,
-    "Daina Shop Custom Funkos (Instagram)": RutaMerch_9,
-    "Mixup Store Peru (Instagram)": RutaMerch_10
+    "eThaiCD portal de entretenimiento tailandés": RutaMerch_7,
+    "Babii Store Latam (Instagram)": RutaMerch_8,
+    "Raikantopini Shop (Instagram)": RutaMerch_9,
+    "Daina Shop Custom Funkos (Instagram)": RutaMerch_10,
+    "Mixup Store Peru (Instagram)": RutaMerch_11
 }
 
 # FILTROS DE PALABRAS CLAVE QUE ME PEDISTE
-KEYWORDS_MERCH = ["gl", "thai", "wlw", "gl series" "Becky" "Freen" "Lena" "Miu" "LingLing" "Orm" "Namtan" "Nur" "Faye"]
+KEYWORDS_MERCH = ["Freen", "Becky", "Lingling", "Orm", "Lena Lalina", "Miu", "Faye", "Atom", "Lookmhee", "Sonya", 
+    "LMSY", "Namtan", "Film", "NamtanFilm", "Milk", "Love", "MilkLove", "View", "Mim", "ViewMim", 
+    "Ginny", "Jayna", "GinnyJayna", "Engfa", "Charlotte", "EngLot", "Apple", "Mim", "AppleMim", "Nile", 
+    "Namwan", "NileNamwan", "Lilly Ladapa", "Belle", "LillyBelle", "Namneung", "Noey", "NamneungNoey", 
+    "Atom Kamnoetsirikun", "Mersedes Kanyawee", "AtomMersedes", "Bam", "Baipor", "BamBamBaipor", "Tan", 
+    "Yada", "TanYada", "June", "Enjoy", "JuneEnjoy", "Fah", "Bell", "FahBell", "Ormsin", "Folk", 
+    "OrmsinFolk", "Anda", "Lookkaew", "AndaLookkaew", "Noon", "Praewa", "NoonPraewa", "Tungpang", "Jessie", 
+    "TungpangJessie", "Tangkwa", "Nur", "TangkwaNur", "Shelly", "Pundao", "ShellyPundao", "Garn", "Mimie", 
+    "GarnMimie", "May Yada", "MayNita", "Nita", "Minnie", "Pannie", "MinniePannie", "Bommy", "Ning", 
+    "BommyNing", "Meena", "Aoom", "MeenaAoom", "Yuyee Alisa", "Mint Mintita", "Care", "Prigkhing", "Nuttacha", 
+    "Bhapat Ahchariyasripong", "Charada Imraporn", "Chutimon Prasanwan", "Evarin Atichaichaowakit", 
+    "Plaifa Waraha", "Fay Apisara", "Jeanie Ornlin", "BamBam Thitaree", "Ciize Rutricha", "Emi Thasorn", 
+    "Bonnie Pattraphus Borattasuwan", "Jan Ployshompoo", "JingJing Yu", "Kapook Ploynira Hiruntaveesin", 
+    "Jaoying Chawalitporn Pusomjit", "Mewnich Nannaphas Lertvilai", "Pahn Pathitta", 
+    "Fond Nattanicha Chantaravareelekha", "Oom", "Bint Sireethorn", "Puinoon Warangsiri Tanajarusworaphat", 
+    "FayMay", "Nita Aniphan Chalermburanawong", "Neko", "Mie Phattaranan", "Aya Orapan", "Kao Supassara", 
+    "Jane Methika", "Natt Pitcha", "Meo-Meow", "Jennis", "Tarwaan", "Kaew", "Spy", "Yipun",
+    "GL", "serie GL", "wlw", "thai", "gl series"]
 
 class Servidor(BaseHTTPRequestHandler):
     def do_GET(self):
