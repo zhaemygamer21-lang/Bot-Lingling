@@ -4,33 +4,17 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
 # PEGA TUS ENLACES REALES DENTRO DE LAS COMILLAS CORRESPONDIENTES:
-RutaMerch_1 = "https://www.redbubble.com/shop?"
-
-query=Gl&ref=search_box"
-RutaMerch_2 = "https://www.etsy.com/es/search?"
-
-q=gl&ref=search_bar"
-RutaMerch_3 = "https://www.teepublic.com/t-shirts?"
-
-query=gl"
-RutaMerch_4 = "https://creativelifestyle.store/?"
-
-s=Gl&post_type=product"
-RutaMerch_5 = "https://es.aliexpress.com/w/wholesale-gl-
-
-thai-series.html?"
-
-osf=auto_suggest&spm=a2g0n.productli st.header.O"
+RutaMerch_1 = "https://www.redbubble.com/shop?query=Gl&ref=search_box"
+RutaMerch_2 = "https://www.etsy.com/es/search?q=gl&ref=search_bar"
+RutaMerch_3 = "https://www.teepublic.com/t-shirts?"query=gl"
+RutaMerch_4 = "https://creativelifestyle.store/?s=Gl&post_type=product"
+RutaMerch_5 = "https://es.aliexpress.com/w/wholesale-gl-thai-series.html?osf=auto_suggest&spm=a2g0n.productli st.header.O"
 RutaMerch_6 = "https://www.velvetmoon.cl/search?q=Gl"
 RutaMerch_7 = "https://www.ethaicd.com/"
-RutaMerch_8 = "https://rss.app/feeds/XFteWTncJ495pct3.
-
-xmI"
+RutaMerch_8 = "https://rss.app/feeds/XFteWTncJ495pct3.xmI"
 RutaMerch_9 = "https://rss.app/feeds/mQzu3TPHk2 VgufR 6.xml"
 RutaMerch_10 = "https://rss.app/feeds/Ao5SN5Fn9cw9IKa O.xmI"
-RutaMerch_11 = "https://rss.app/feeds/LSg24vu1F3JnpR9P.
-
-xml"
+RutaMerch_11 = "https://rss.app/feeds/LSg24vu1F3JnpR9P.xml"
 
 FUENTES_MERCH = {
     "Redbubble Posters": RutaMerch_1,
