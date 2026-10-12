@@ -68,7 +68,7 @@ threading.Thread(target=run_server, daemon=True).start()
 
 def coincide_con_filtros(texto):
     t = texto.lower()
-    return any(kw in t for kw in KEYWORDS_MERCH)
+    return any(kw.lower() in t for kw in KEYWORDS_MERCH)
 
 def enviar_a_discord(link, titulo, resumen, fuente, imagen_url=None):
     saludo_lingling = (
@@ -158,4 +158,5 @@ def bucle_monitoreo_merch():
 
 if __name__ == "__main__":
     bucle_monitoreo_merch()
+
     
