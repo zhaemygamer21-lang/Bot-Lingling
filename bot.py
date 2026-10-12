@@ -4,21 +4,21 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
 # PEGA TUS ENLACES REALES DENTRO DE LAS COMILLAS CORRESPONDIENTES:
-RutaMerch_1 = "https://www.redbubble.com/shop?
+RutaMerch_1 = "https://www.redbubble.com/shop?"
 
 query=Gl&ref=search_box"
-RutaMerch_2 = "https://www.etsy.com/es/search?
+RutaMerch_2 = "https://www.etsy.com/es/search?"
 
 q=gl&ref=search_bar"
-RutaMerch_3 = "https://www.teepublic.com/t-shirts?
+RutaMerch_3 = "https://www.teepublic.com/t-shirts?"
 
 query=gl"
-RutaMerch_4 = "https://creativelifestyle.store/?
+RutaMerch_4 = "https://creativelifestyle.store/?"
 
 s=Gl&post_type=product"
 RutaMerch_5 = "https://es.aliexpress.com/w/wholesale-gl-
 
-thai-series.html?
+thai-series.html?"
 
 osf=auto_suggest&spm=a2g0n.productli st.header.O"
 RutaMerch_6 = "https://www.velvetmoon.cl/search?q=Gl"
