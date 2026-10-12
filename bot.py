@@ -3,32 +3,50 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
-# TUS 7 TIENDAS BASE + TUS 4 FEEDS DE INSTAGRAM CONVERTIDOS POR RSS.APP
-RutaMerch_1 = "https://redbubble.com"
-RutaMerch_2 = "https://etsy.com"
-RutaMerch_3 = "https://ethaicd.com"
-RutaMerch_4 = "https://teepublic.com"
-RutaMerch_5 = "https://creativelifestyle.store"
-RutaMerch_6 = "https://aliexpress.com"
-RutaMerch_7 = "https://velvetmoon.cl"
-RutaMerch_8 = "https://rss.app"
-RutaMerch_9 = "https://rss.app"
-RutaMerch_10 = "https://rss.app"
-RutaMerch_11 = "https://rss.app"
+# PEGA TUS ENLACES REALES DENTRO DE LAS COMILLAS CORRESPONDIENTES:
+RutaMerch_1 = "https://www.redbubble.com/shop?
+
+query=Gl&ref=search_box"
+RutaMerch_2 = "https://www.etsy.com/es/search?
+
+q=gl&ref=search_bar"
+RutaMerch_3 = "https://www.teepublic.com/t-shirts?
+
+query=gl"
+RutaMerch_4 = "https://creativelifestyle.store/?
+
+s=Gl&post_type=product"
+RutaMerch_5 = "https://es.aliexpress.com/w/wholesale-gl-
+
+thai-series.html?
+
+osf=auto_suggest&spm=a2g0n.productli st.header.O"
+RutaMerch_6 = "https://www.velvetmoon.cl/search?q=Gl"
+RutaMerch_7 = "https://www.ethaicd.com/"
+RutaMerch_8 = "https://rss.app/feeds/XFteWTncJ495pct3.
+
+xmI"
+RutaMerch_9 = "https://rss.app/feeds/mQzu3TPHk2 VgufR 6.xml"
+RutaMerch_10 = "https://rss.app/feeds/Ao5SN5Fn9cw9IKa O.xmI"
+RutaMerch_11 = "https://rss.app/feeds/LSg24vu1F3JnpR9P.
+
+xml"
 
 FUENTES_MERCH = {
     "Redbubble Posters": RutaMerch_1,
     "Etsy Fan Merch": RutaMerch_2,
-    "eThaiCD (Cajas Oficiales Thai)": RutaMerch_3,
-    "Teepublic Camisetas": RutaMerch_4,
-    "Creative Lifestyle Store": RutaMerch_5,
-    "AliExpress Baratijas": RutaMerch_6,
-    "VelvetMoon Papelería": RutaMerch_7,
-    "Babii Store Latam (Instagram)": RutaMerch_8,
-    "Raikantopini Shop (Instagram)": RutaMerch_9,
-    "Daina Shop Custom Funkos (Instagram)": RutaMerch_10,
-    "Mixup Store Peru (Instagram)": RutaMerch_11
+    "Teepublic Camisetas": RutaMerch_3,
+    "Creative Lifestyle Store": RutaMerch_4,
+    "AliExpress Baratijas": RutaMerch_5,
+    "VelvetMoon Papelería": RutaMerch_6,
+    "Babii Store Latam (Instagram)": RutaMerch_7,
+    "Raikantopini Shop (Instagram)": RutaMerch_8,
+    "Daina Shop Custom Funkos (Instagram)": RutaMerch_9,
+    "Mixup Store Peru (Instagram)": RutaMerch_10
 }
+
+# FILTROS DE PALABRAS CLAVE QUE ME PEDISTE
+KEYWORDS_MERCH = ["gl", "thai", "wlw", "gl series" "Becky" "Freen" "Lena" "Miu" "LingLing" "Orm" "Namtan" "Nur" "Faye"]
 
 class Servidor(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -45,6 +63,10 @@ def run_server():
     HTTPServer(("0.0.0.0", port), Servidor).serve_forever()
 
 threading.Thread(target=run_server, daemon=True).start()
+
+def coincide_con_filtros(texto):
+    t = texto.lower()
+    return any(kw in t for kw in KEYWORDS_MERCH)
 
 def enviar_a_discord(link, titulo, resumen, fuente, imagen_url=None):
     saludo_lingling = (
@@ -92,18 +114,17 @@ def extraer_datos_tienda(html_puro, url_base):
         titulo = tit_match.group(1).strip() if tit_match else "Nuevo artículo de merch disponible"
         titulo = re.sub(r'(| Etsy| | Redbubble| AliExpress| RSS\.app)', '', titulo, flags=re.IGNORECASE).strip()
         
-        resumen = "¡Cuadros, photobooks oficiales, llaveros, ropa o artículos custom detectados en el catálogo! Revisa las fotografías completas en el enlace oficial."
+        resumen = "¡Cuadros, papelería, ropa o artículos custom detectados en el catálogo sáfico! Revisa las fotografías en el enlace oficial."
         return [(url_base, titulo, resumen, foto)]
     except:
         pass
     return None
 
 def bucle_monitoreo_merch():
-    # CAMBIO CRÍTICO: El historial inicia vacío para forzar la publicación inmediata de lo actual
     ultimos_productos = {}
     print("Iniciando rastreador masivo de tesoros jochis...")
     
-    # Bandera técnica para controlar el flujo inicial
+    # FORZAR ENVIAR LO DE LA ÚLTIMA SEMANA DESDE EL INICIO
     primera_carga = True
     
     while True:
@@ -121,16 +142,18 @@ def bucle_monitoreo_merch():
                 datos = extraer_datos_tienda(res.text, url)
                 if datos:
                     for link, titulo, resumen, foto in datos:
-                        # Si es la primera vez que arranca, estampa el catálogo de una vez en el chat
                         if primera_carga or (nombre_tienda not in ultimos_productos or titulo != ultimos_productos[nombre_tienda]):
                             ultimos_productos[nombre_tienda] = titulo
-                            enviar_a_discord(link, titulo, resumen, nombre_tienda, foto)
-                            time.sleep(4) # Espaciado elegante para que Discord no lo frene
+                            
+                            if coincide_con_filtros(titulo) or coincide_con_filtros(resumen) or "rss.app" in url:
+                                enviar_a_discord(link, titulo, resumen, nombre_tienda, foto)
+                                time.sleep(4)
             except:
                 pass
         
-        primera_carga = False # Luego del bombardeo inicial, se queda vigilando solo lo nuevo
+        primera_carga = False
         time.sleep(900)
 
 if __name__ == "__main__":
     bucle_monitoreo_merch()
+    
